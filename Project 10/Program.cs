@@ -59,8 +59,8 @@ class SlotGame
     static int CalculateWinnings(string[,] grid, int choice)
     {
         int winnings = 0;
-        if (choice == 1 || choice == 5) winnings += CheckHorizontal(grid, 1);
-        if (choice == 2 || choice == 5)
+        if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckHorizontal(grid, 1);
+        if (choice == CHOICE_2 || choice == CHOICE_5)
         {
             winnings += CheckHorizontal(grid, 0);
             winnings += CheckHorizontal(grid, 1);
