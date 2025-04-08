@@ -2,6 +2,9 @@
 
 class SlotGame
 {
+    const int COLS = 4;
+    const int ROWS = 3;
+
     static Random random = new Random();
     static string[] slotValues = { "1", "2", "3", "4", "5" }; // values that slot will be filled with
 
@@ -25,10 +28,10 @@ class SlotGame
 
     static string[,] SpinReels() // filling the grid with values
     {
-        string[,] grid = new string[3, 3];
-        for (int i = 0; i < 3; i++)
+        string[,] grid = new string[ROWS, COLS];
+        for (int i = 0; i < ROWS; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < COLS; j++)
             {
                 grid[i, j] = slotValues[random.Next(slotValues.Length)];
             }
@@ -38,9 +41,9 @@ class SlotGame
 
     static void PrintGrid(string[,] grid) // priting the grid
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < ROWS; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < COLS; j++)
             {
                 Console.Write(grid[i, j] + " ");
             }
