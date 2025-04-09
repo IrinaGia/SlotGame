@@ -5,8 +5,8 @@ class SlotGame
     const int COLS = 3;
     const int ROWS = 3;
     const int CHOICE_1 = 1; // Center
-    const int CHOICE_2 = 2; // All Horizontal
-    const int CHOICE_3 = 3; // All Vertical
+    const int CHOICE_2 = 2; // Horizontal
+    const int CHOICE_3 = 3; // Vertical
     const int CHOICE_4 = 4; // Diagonals
     const int CHOICE_5 = 5; // All
 
@@ -19,7 +19,7 @@ class SlotGame
         Console.Write("Enter your wager amount: $");
         int user_wager = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Select lines to play: " + CHOICE_1 + ": Center. " + CHOICE_2+  ": All Horizontal. " + CHOICE_3+ ": All Vertical. " + CHOICE_4 + ": Diagonals. " + CHOICE_5 + ": All.");
+        Console.WriteLine("Select lines to play: " + CHOICE_1 + ": Center. " + CHOICE_2+  ": Horizontal. " + CHOICE_3+ ": Vertical. " + CHOICE_4 + ": Diagonals. " + CHOICE_5 + ": All.");
         int choice = int.Parse(Console.ReadLine());
 
         string[,] grid = SpinReels();
