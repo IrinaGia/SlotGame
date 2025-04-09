@@ -11,7 +11,7 @@ class SlotGame
     const int CHOICE_5 = 5; // All
 
     static Random random = new Random();
-    static string[] slotValues = { "1", "2", "3", "4", "5" }; // values that slot will be filled with
+    static string[] slotValues = { "1", "2", "3" }; // values that slot will be filled with
 
     static void Main()
     {
@@ -25,10 +25,10 @@ class SlotGame
         string[,] grid = SpinReels();
         PrintGrid(grid);
 
-        //int winnings = CalculateWinnings(grid, choice);
+        int winnings = user_wager * CalculateWinnings(grid, choice);
 
-        //Console.WriteLine($"You won: ${winnings}");
-        //Console.WriteLine($"Net balance: ${(winnings - user_wager)}");
+        Console.WriteLine($"You won: ${winnings}");
+        Console.WriteLine($"Net balance: ${(winnings - user_wager)}");
     }
 
     static string[,] SpinReels() // filling the grid with values
@@ -56,38 +56,25 @@ class SlotGame
         }
     }
 
-   /* static int CalculateWinnings(string[,] grid, int choice)
+   static int CalculateWinnings(string[,] grid, int choice)
     {
         int winnings = 0;
-        if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckHorizontal(grid, 1);
+        if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckHorizontal(grid, COLS, ROWS);
         if (choice == CHOICE_2 || choice == CHOICE_5)
         {
-            winnings += CheckHorizontal(grid, 0);
-            winnings += CheckHorizontal(grid, 1);
-            winnings += CheckHorizontal(grid, 2);
+            winnings += CheckHorizontal(grid, COLS, ROWS);
         }
         if (choice == CHOICE_3 || choice == CHOICE_5)
         {
-            winnings += CheckVertical(grid, 0);
-            winnings += CheckVertical(grid, 1);
-            winnings += CheckVertical(grid, 2);
+            winnings += CheckVertical(grid, COLS, ROWS);
         }
-        if (choice == CHOICE_4 || choice == CHOICE_5)
+        /*if (choice == CHOICE_4 || choice == CHOICE_5)
         {
             winnings += CheckDiagonal(grid, true);
             winnings += CheckDiagonal(grid, false);
-        }
+        }*/
         return winnings;
     }
-
-    /*static int CheckHorizontal(string[,] grid, int row)
-    {
-        if (grid[row, 0] == grid[row, 1] && grid[row, 0] == grid[row, 2])
-        {
-            return 3; // Payout per line
-        }
-        return 0;
-    }*/
 
     static int CheckHorizontal(string[,] grid, int rows, int cols)
     {
@@ -126,7 +113,7 @@ class SlotGame
             bool allSameInRow = true; 
 
             
-            for (int i = 0; i < cols; i++)
+           for (int i = 1; i < cols; i++)
             {
                 if (grid[i, j] != grid[i-1, j]) // current column value against previous column in the same row
                 {
