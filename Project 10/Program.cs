@@ -2,7 +2,7 @@
 
 class SlotGame
 {
-    const int COLS = 4;
+    const int COLS = 3;
     const int ROWS = 3;
     const int CHOICE_1 = 1; // Center
     const int CHOICE_2 = 2; // All Horizontal
@@ -25,10 +25,10 @@ class SlotGame
         string[,] grid = SpinReels();
         PrintGrid(grid);
 
-        int winnings = CalculateWinnings(grid, choice);
+        //int winnings = CalculateWinnings(grid, choice);
 
-        Console.WriteLine($"You won: ${winnings}");
-        Console.WriteLine($"Net balance: ${(winnings - user_wager)}");
+        //Console.WriteLine($"You won: ${winnings}");
+        //Console.WriteLine($"Net balance: ${(winnings - user_wager)}");
     }
 
     static string[,] SpinReels() // filling the grid with values
@@ -56,7 +56,7 @@ class SlotGame
         }
     }
 
-    static int CalculateWinnings(string[,] grid, int choice)
+   /* static int CalculateWinnings(string[,] grid, int choice)
     {
         int winnings = 0;
         if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckHorizontal(grid, 1);
@@ -66,13 +66,13 @@ class SlotGame
             winnings += CheckHorizontal(grid, 1);
             winnings += CheckHorizontal(grid, 2);
         }
-        if (choice == 3 || choice == 5)
+        if (choice == CHOICE_3 || choice == CHOICE_5)
         {
             winnings += CheckVertical(grid, 0);
             winnings += CheckVertical(grid, 1);
             winnings += CheckVertical(grid, 2);
         }
-        if (choice == 4 || choice == 5)
+        if (choice == CHOICE_4 || choice == CHOICE_5)
         {
             winnings += CheckDiagonal(grid, true);
             winnings += CheckDiagonal(grid, false);
@@ -80,32 +80,98 @@ class SlotGame
         return winnings;
     }
 
-    static int CheckHorizontal(string[,] grid, int row)
+    /*static int CheckHorizontal(string[,] grid, int row)
     {
         if (grid[row, 0] == grid[row, 1] && grid[row, 0] == grid[row, 2])
         {
             return 3; // Payout per line
         }
         return 0;
+    }*/
+
+    static int CheckHorizontal(string[,] grid, int rows, int cols)
+    {
+        int count = 0; // counts how many rows will have same numbers
+
+        // Iterates over each row
+        for (int i = 0; i < rows; i++)
+        {
+            bool allSameInRow = true; // if values are the same
+
+            // Iterate through all columns starting from the second column
+            for (int j = 1; j < cols; j++)
+            {
+                if (grid[i, j] != grid[i, j - 1]) // current column value against previous column in the same row
+                {
+                    allSameInRow = false; // if values do not match
+                    break;
+                }
+            }
+
+            if (allSameInRow)
+            {
+                count++;
+            }
+        }
+
+        return count; 
     }
 
-    static int CheckVertical(string[,] grid, int col)
+    static int CheckVertical(string[,] grid, int rows, int cols)
     {
-        if (grid[0, col] == grid[1, col] && grid[0, col] == grid[2, col])
+        int count = 0; 
+        
+        for (int j = 0; j < rows; j++)
         {
-            return 3; // Payout per vertical line
+            bool allSameInRow = true; 
+
+            
+            for (int i = 0; i < cols; i++)
+            {
+                if (grid[i, j] != grid[i-1, j]) // current column value against previous column in the same row
+                {
+                    allSameInRow = false; 
+                    break;
+                }
+            }
+
+            if (allSameInRow)
+            {
+                count++;
+            }
         }
-        return 0;
+
+        return count; 
     }
-    static int CheckDiagonal(string[,] grid, bool isMain)
+
+    public static bool CheckMainDiagonaL(int[,] grid, int rows, int cols)
     {
-        if (isMain)
+        bool allSameInDiagonal = true;
+        for (int i = 1; i < rows; i++)  // Start from 1 to compare with previous element
         {
-            return (grid[0, 0] == grid[1, 1] && grid[0, 0] == grid[2, 2]) ? 3 : 0;
+            if (grid[i, i] != grid[i - 1, i - 1])
+            {
+                allSameInDiagonal = false;
+                break;
+            }
         }
-        else
+
+        return allSameInDiagonal;
+    }
+
+    // checks anti-diagonal for the same values
+    public static bool CheckAntiDiagonal(int[,] grid, int rows, int cols)
+    {
+        bool allSameInAntiDiagonal = true;
+        for (int i = 1; i < rows; i++)  // Start from 1 to compare with previous element
         {
-            return (grid[0, 2] == grid[1, 1] && grid[0, 2] == grid[2, 0]) ? 3 : 0;
+            if (grid[i, rows - i - 1] != grid[i - 1, rows - i])
+            {
+                allSameInAntiDiagonal = false;
+                break;
+            }
         }
+
+        return allSameInAntiDiagonal;
     }
 }
