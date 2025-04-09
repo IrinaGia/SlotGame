@@ -144,7 +144,7 @@ class SlotGame
         return count; 
     }
 
-    public static bool CheckMainDiagonaL(int[,] grid, int rows, int cols)
+    public static bool CheckMainDiagonaL(string[,] grid, int rows, int cols)
     {
         bool allSameInDiagonal = true;
         for (int i = 1; i < rows; i++)  // Start from 1 to compare with previous element
@@ -160,7 +160,7 @@ class SlotGame
     }
 
     // checks anti-diagonal for the same values
-    public static bool CheckAntiDiagonal(int[,] grid, int rows, int cols)
+    public static bool CheckAntiDiagonal(string[,] grid, int rows, int cols)
     {
         bool allSameInAntiDiagonal = true;
         for (int i = 1; i < rows; i++)  // Start from 1 to compare with previous element
