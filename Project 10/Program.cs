@@ -70,8 +70,8 @@ class SlotGame
         }
         /*if (choice == CHOICE_4 || choice == CHOICE_5)
         {
-            winnings += CheckDiagonal(grid, true);
-            winnings += CheckDiagonal(grid, false);
+            winnings += CheckDiagonal(grid, COLS, ROWS);
+            winnings += CheckAntiDiagonal(grid, COLS, ROWS);
         }*/
         return winnings;
     }
