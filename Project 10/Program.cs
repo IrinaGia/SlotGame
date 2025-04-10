@@ -13,7 +13,7 @@ class SlotGame
     const int col_index = 0; // used in checkCenter
 
     static Random random = new Random();
-    static string[] slotValues = { "1" }; // values that slot will be filled with
+    static string[] slotValues = { "1", "2", "3", "4", "5" }; // values that slot will be filled with
 
     static void Main()
     {
