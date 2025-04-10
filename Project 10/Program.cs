@@ -9,9 +9,11 @@ class SlotGame
     const int CHOICE_3 = 3; // Vertical
     const int CHOICE_4 = 4; // Diagonals
     const int CHOICE_5 = 5; // All
+    const int checkOddKoef = 2; // koeficient used in checkCenter
+    const int col_index = 0; // used in checkCenter
 
     static Random random = new Random();
-    static string[] slotValues = { "1", "2", "3" }; // values that slot will be filled with
+    static string[] slotValues = { "1" }; // values that slot will be filled with
 
     static void Main()
     {
@@ -19,7 +21,7 @@ class SlotGame
         Console.Write("Enter your wager amount: $");
         int user_wager = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Select lines to play: " + CHOICE_1 + ": Center. " + CHOICE_2+  ": Horizontal. " + CHOICE_3+ ": Vertical. " + CHOICE_4 + ": Diagonals. " + CHOICE_5 + ": All.");
+        Console.WriteLine("Select lines to play: " + CHOICE_1 + ": Center. " + CHOICE_2 + ": Horizontal. " + CHOICE_3 + ": Vertical. " + CHOICE_4 + ": Diagonals. " + CHOICE_5 + ": All.");
         int choice = int.Parse(Console.ReadLine());
 
         string[,] grid = SpinReels();
@@ -56,10 +58,10 @@ class SlotGame
         }
     }
 
-   static int CalculateWinnings(string[,] grid, int choice)
+    static int CalculateWinnings(string[,] grid, int choice)
     {
         int winnings = 0;
-        if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckHorizontal(grid, COLS, ROWS);
+        if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckCenter(grid, COLS, ROWS);
         if (choice == CHOICE_2 || choice == CHOICE_5)
         {
             winnings += CheckHorizontal(grid, COLS, ROWS);
@@ -68,13 +70,36 @@ class SlotGame
         {
             winnings += CheckVertical(grid, COLS, ROWS);
         }
-        /*if (choice == CHOICE_4 || choice == CHOICE_5)
+        if (choice == CHOICE_4 || choice == CHOICE_5)
         {
-            winnings += CheckDiagonal(grid, COLS, ROWS);
+            winnings += CheckMainDiagonal(grid, COLS, ROWS);
             winnings += CheckAntiDiagonal(grid, COLS, ROWS);
-        }*/
+        }
         return winnings;
     }
+
+    static int CheckCenter(string[,] grid, int rows, int cols)
+    {
+        int count = 0;
+        bool sameCenter = true;
+        int centerRow = rows / checkOddKoef;
+        string firstValue = grid[centerRow, col_index];
+
+        for (int j = 1; j < cols; j++)
+        {
+            if (grid[centerRow, j] != firstValue)
+            {
+                sameCenter = false;
+                break;
+            }
+        }
+        if (sameCenter) 
+        {
+            count++;
+        }
+        return count;
+    }
+
 
     static int CheckHorizontal(string[,] grid, int rows, int cols)
     {
@@ -131,8 +156,9 @@ class SlotGame
         return count; 
     }
 
-    public static bool CheckMainDiagonaL(string[,] grid, int rows, int cols)
+    public static int CheckMainDiagonal(string[,] grid, int rows, int cols)
     {
+        int count = 0;
         bool allSameInDiagonal = true;
         for (int i = 1; i < rows; i++)  // Start from 1 to compare with previous element
         {
@@ -142,13 +168,18 @@ class SlotGame
                 break;
             }
         }
+        if (allSameInDiagonal) 
+        {
+            count++;
+        }
 
-        return allSameInDiagonal;
+        return count;
     }
 
     // checks anti-diagonal for the same values
-    public static bool CheckAntiDiagonal(string[,] grid, int rows, int cols)
+    public static int CheckAntiDiagonal(string[,] grid, int rows, int cols)
     {
+        int count = 0;
         bool allSameInAntiDiagonal = true;
         for (int i = 1; i < rows; i++)  // Start from 1 to compare with previous element
         {
@@ -158,7 +189,11 @@ class SlotGame
                 break;
             }
         }
+        if (allSameInAntiDiagonal)
+        {
+            count++;
+        }
 
-        return allSameInAntiDiagonal;
+        return count;
     }
 }
