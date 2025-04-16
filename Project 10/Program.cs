@@ -4,13 +4,16 @@ class SlotGame
 {
     const int COLS = 3;
     const int ROWS = 3;
-    const int CHOICE_1 = 1; // Center
-    const int CHOICE_2 = 2; // Horizontal
-    const int CHOICE_3 = 3; // Vertical
-    const int CHOICE_4 = 4; // Diagonals
-    const int CHOICE_5 = 5; // All
-    const int checkOddKoef = 2; // koeficient used in checkCenter
-    const int col_index = 0; // used in checkCenter
+    const int WAGER_3 = 3; // 3 dollar wager
+    const int WAGER_5 = 5; // 5 dollar wager
+    const int WAGER_10 = 10; // 10 dollar wager
+    const int CHOICE_CENTER = 1; // Center
+    const int CHOICE_HORIZ = 2; // Horizontal
+    const int CHOICE_VERT = 3; // Vertical
+    const int CHOICE_DIAG = 4; // Diagonals
+    const int CHOICE_ALL = 5; // All
+    const int CHECK_ODD_KOEF = 2; // koeficient used in checkCenter
+    const int COL_INDEX = 0; // used in checkCenter
 
     static Random random = new Random();
     static string[] slotValues = { "1", "2", "3", "4", "5" }; // values that slot will be filled with
@@ -18,19 +21,19 @@ class SlotGame
     static void Main()
     {
         Console.WriteLine("Welcome to the Slot Machine!");
-        Console.Write("Enter your wager amount: $");
-        int user_wager = int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter your wager amount:" + WAGER_3 + "$; " + WAGER_5 + "$; " + WAGER_10 + "$. " + "Or insert your own wager amount." );
+        int userWager = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Select lines to play: " + CHOICE_1 + ": Center. " + CHOICE_2 + ": Horizontal. " + CHOICE_3 + ": Vertical. " + CHOICE_4 + ": Diagonals. " + CHOICE_5 + ": All.");
+        Console.WriteLine("Select lines to play: " + CHOICE_CENTER + ": Center. " + CHOICE_HORIZ + ": Horizontal. " + CHOICE_VERT + ": Vertical. " + CHOICE_DIAG + ": Diagonals. " + CHOICE_ALL + ": All.");
         int choice = int.Parse(Console.ReadLine());
 
         string[,] grid = SpinReels();
         PrintGrid(grid);
 
-        int winnings = user_wager * CalculateWinnings(grid, choice);
+        int winnings = userWager * CalculateWinnings(grid, choice);
 
         Console.WriteLine($"You won: ${winnings}");
-        Console.WriteLine($"Net balance: ${(winnings - user_wager)}");
+        Console.WriteLine($"Net balance: ${(winnings - userWager)}");
     }
 
     static string[,] SpinReels() // filling the grid with values
@@ -61,16 +64,16 @@ class SlotGame
     static int CalculateWinnings(string[,] grid, int choice)
     {
         int winnings = 0;
-        if (choice == CHOICE_1 || choice == CHOICE_5) winnings += CheckCenter(grid, COLS, ROWS);
-        if (choice == CHOICE_2 || choice == CHOICE_5)
+        if (choice == CHOICE_CENTER || choice == CHOICE_ALL) winnings += CheckCenter(grid, COLS, ROWS);
+        if (choice == CHOICE_HORIZ || choice == CHOICE_ALL)
         {
             winnings += CheckHorizontal(grid, COLS, ROWS);
         }
-        if (choice == CHOICE_3 || choice == CHOICE_5)
+        if (choice == CHOICE_VERT || choice == CHOICE_ALL)
         {
             winnings += CheckVertical(grid, COLS, ROWS);
         }
-        if (choice == CHOICE_4 || choice == CHOICE_5)
+        if (choice == CHOICE_DIAG || choice == CHOICE_ALL)
         {
             winnings += CheckMainDiagonal(grid, COLS, ROWS);
             winnings += CheckAntiDiagonal(grid, COLS, ROWS);
@@ -82,8 +85,8 @@ class SlotGame
     {
         int count = 0;
         bool sameCenter = true;
-        int centerRow = rows / checkOddKoef;
-        string firstValue = grid[centerRow, col_index];
+        int centerRow = rows / CHECK_ODD_KOEF;
+        string firstValue = grid[centerRow, COL_INDEX];
 
         for (int j = 1; j < cols; j++)
         {
