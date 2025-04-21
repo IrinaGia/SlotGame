@@ -16,11 +16,11 @@ class SlotGame
     const int COL_INDEX = 0; // used in checkCenter
 
     static Random random = new Random();
-    static string[] slotValues = { "1", "2", "3", "4", "5" }; // values that slot will be filled with
+    static string[] slotValues = { "1", "2", "3" }; // values that slot will be filled with
 
     static void Main()
     {
-        Console.WriteLine("Welcome to the Slot Machine!");
+        Console.WriteLine("Welcome to the Slot Machine! One spin cost is 50% from your wager");
         Console.WriteLine("Enter your wager amount:" + WAGER_3 + "$; " + WAGER_5 + "$; " + WAGER_10 + "$. " + "Or insert your own wager amount." );
         int userWager = int.Parse(Console.ReadLine());
 
@@ -33,7 +33,7 @@ class SlotGame
         int winnings = userWager * CalculateWinnings(grid, choice);
 
         Console.WriteLine($"You won: ${winnings}");
-        Console.WriteLine($"Net balance: ${(winnings - userWager)}");
+        Console.WriteLine($"Net balance: ${(winnings - userWager/2)}");
     }
 
     static string[,] SpinReels() // filling the grid with values
