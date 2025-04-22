@@ -75,8 +75,8 @@ class SlotGame
         }
         if (choice == CHOICE_DIAG || choice == CHOICE_ALL)
         {
-            winnings += CheckMainDiagonal(grid, COLS, ROWS);
-            winnings += CheckAntiDiagonal(grid, COLS, ROWS);
+            winnings += CheckMainDiagonal(grid, ROWS);
+            winnings += CheckAntiDiagonal(grid, ROWS);
         }
         return winnings;
     }
@@ -159,7 +159,7 @@ class SlotGame
         return count; 
     }
 
-    public static int CheckMainDiagonal(string[,] grid, int rows, int cols)
+    public static int CheckMainDiagonal(string[,] grid, int rows)
     {
         int count = 0;
         bool allSameInDiagonal = true;
@@ -180,7 +180,7 @@ class SlotGame
     }
 
     // checks anti-diagonal for the same values
-    public static int CheckAntiDiagonal(string[,] grid, int rows, int cols)
+    public static int CheckAntiDiagonal(string[,] grid, int rows)
     {
         int count = 0;
         bool allSameInAntiDiagonal = true;
