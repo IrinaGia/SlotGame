@@ -21,7 +21,7 @@ class SlotGame
     static void Main()
     {
         Console.WriteLine("Welcome to the Slot Machine! One spin cost is 50% from your wager");
-
+        int netBalance = 0;
         while (true) 
         {
         Console.WriteLine("Enter your wager amount:" + WAGER_3 + "$; " + WAGER_5 + "$; " + WAGER_10 + "$. " + "Or insert your own wager amount." );
@@ -35,8 +35,11 @@ class SlotGame
 
         int winnings = userWager * CalculateWinnings(grid, choice);
 
-        Console.WriteLine($"You won: ${winnings}");
-        Console.WriteLine($"Net balance: ${(winnings - userWager/2)}");
+            int spinResult = winnings - userWager / 2; // what user wins after spin
+            netBalance += spinResult;
+
+            Console.WriteLine($"Round result: ${spinResult}");
+            Console.WriteLine($"Total net balance: ${netBalance}");
 
             Console.WriteLine("\nDo you want to play again? (y/n)");
             string input = Console.ReadLine().ToLower();
