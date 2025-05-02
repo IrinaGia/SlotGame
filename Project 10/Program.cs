@@ -1,5 +1,5 @@
 ﻿ using System;
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                   
 class SlotGame
 {
     const int COLS = 3;
@@ -17,10 +17,13 @@ class SlotGame
 
     static Random random = new Random();
     static string[] slotValues = { "1", "2", "3" }; // values that slot will be filled with
-
+    
     static void Main()
     {
         Console.WriteLine("Welcome to the Slot Machine! One spin cost is 50% from your wager");
+
+        while (true) 
+        {
         Console.WriteLine("Enter your wager amount:" + WAGER_3 + "$; " + WAGER_5 + "$; " + WAGER_10 + "$. " + "Or insert your own wager amount." );
         int userWager = int.Parse(Console.ReadLine());
 
@@ -34,6 +37,15 @@ class SlotGame
 
         Console.WriteLine($"You won: ${winnings}");
         Console.WriteLine($"Net balance: ${(winnings - userWager/2)}");
+
+            Console.WriteLine("\nDo you want to play again? (y/n)");
+            string input = Console.ReadLine().ToLower();
+            if (input != "y" && input != "yes")
+            {
+                Console.WriteLine("Thank you for playing! Goodbye.");
+                break;
+            }
+        }
     }
 
     static string[,] SpinReels() // filling the grid with values
