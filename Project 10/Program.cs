@@ -26,11 +26,15 @@ class SlotGame
         int netBalance = 0;
         while (true) 
         {
-        Console.WriteLine("Enter your wager amount:" + WAGER_3 + "$; " + WAGER_5 + "$; " + WAGER_10 + "$. " + "Or insert your own wager amount." );
-        int userWager = int.Parse(Console.ReadLine());
+         Console.WriteLine("Enter your wager amount:" + WAGER_3 + "$; " + WAGER_5 + "$; " + WAGER_10 + "$. " + "Or insert your own wager amount.");
+         int userWager;
+            while (!int.TryParse(Console.ReadLine(), out userWager))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number:");
+            }
 
-        Console.WriteLine("Select lines to play: " + CHOICE_CENTER + ": Center. " + CHOICE_HORIZ + ": Horizontal. " + CHOICE_VERT + ": Vertical. " + CHOICE_DIAG + ": Diagonals. " + CHOICE_ALL + ": All.");
-        int choice = int.Parse(Console.ReadLine());
+         Console.WriteLine("Select lines to play: " + CHOICE_CENTER + ": Center. " + CHOICE_HORIZ + ": Horizontal. " + CHOICE_VERT + ": Vertical. " + CHOICE_DIAG + ": Diagonals. " + CHOICE_ALL + ": All.");
+         int choice = int.Parse(Console.ReadLine());
 
         string[,] grid = SpinReels();
         PrintGrid(grid);
