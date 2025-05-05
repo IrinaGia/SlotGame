@@ -14,6 +14,8 @@ class SlotGame
     const int CHOICE_ALL = 5; // All
     const int CHECK_ODD_KOEF = 2; // koeficient used in checkCenter
     const int COL_INDEX = 0; // used in checkCenter
+    const string CONTINUE_Y = "y";
+    const string CONTINUE_YES = "yes";
 
     static Random random = new Random();
     static string[] slotValues = { "1", "2", "3" }; // values that slot will be filled with
@@ -43,7 +45,7 @@ class SlotGame
 
             Console.WriteLine("\nDo you want to play again? (y/n)");
             string input = Console.ReadLine().ToLower();
-            if (input != "y" && input != "yes")
+            if (input != CONTINUE_Y && input != CONTINUE_YES)
             {
                 Console.WriteLine("Thank you for playing! Goodbye.");
                 break;
